@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 20 14% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14% 12%;
+    --primary: 28 72% 48%;
+    --primary-foreground: 40 60% 97%;
+    --secondary: 35 20% 93%;
+    --secondary-foreground: 20 14% 20%;
+    --muted: 35 15% 93%;
+    --muted-foreground: 20 8% 46%;
+    --accent: 155 30% 38%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 28 72% 48%;
+    --radius: 0.5rem;
+    --sidebar-background: 20 14% 12%;
+    --sidebar-foreground: 35 20% 93%;
+    --sidebar-primary: 28 72% 48%;
+    --sidebar-primary-foreground: 40 60% 97%;
+    --sidebar-accent: 20 12% 18%;
+    --sidebar-accent-foreground: 35 20% 93%;
+    --sidebar-border: 20 10% 20%;
+    --sidebar-ring: 28 72% 48%;
+  }
+
+  .dark {
+    --background: 20 14% 8%;
+    --foreground: 35 20% 93%;
+    --card: 20 14% 12%;
+    --card-foreground: 35 20% 93%;
+    --popover: 20 14% 12%;
+    --popover-foreground: 35 20% 93%;
+    --primary: 28 72% 52%;
+    --primary-foreground: 20 14% 8%;
+    --secondary: 20 10% 18%;
+    --secondary-foreground: 35 20% 93%;
+    --muted: 20 10% 18%;
+    --muted-foreground: 20 8% 60%;
+    --accent: 155 30% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 28 72% 52%;
+    --sidebar-background: 20 14% 6%;
+    --sidebar-foreground: 35 20% 93%;
+    --sidebar-primary: 28 72% 52%;
+    --sidebar-primary-foreground: 20 14% 6%;
+    --sidebar-accent: 20 12% 12%;
+    --sidebar-accent-foreground: 35 20% 93%;
+    --sidebar-border: 20 10% 14%;
+    --sidebar-ring: 28 72% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}

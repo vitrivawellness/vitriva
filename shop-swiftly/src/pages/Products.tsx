@@ -56,8 +56,8 @@ const Products = () => {
               <SelectContent>
                 <SelectItem value="newest">Newest</SelectItem>
                 <SelectItem value="popular">Most Popular</SelectItem>
-                <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                <SelectItem value="price_asc">Price: Low to High</SelectItem>
+                <SelectItem value="price_desc">Price: High to Low</SelectItem>
               </SelectContent>
             </Select>
           </div>

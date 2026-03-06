@@ -37,7 +37,7 @@ const Login = () => {
       <Navbar />
       <div className="container-wide py-20 max-w-md mx-auto">
         <h1 className="text-3xl text-center mb-2">Welcome Back</h1>
-        <p className="text-center text-muted-foreground mb-8">Sign in to your MAISON account</p>
+        <p className="text-center text-muted-foreground mb-8">Sign in to your Semms Gen-Tech account</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div><Label>Email</Label><Input type="email" placeholder="you@example.com" className="mt-1" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
           <div><Label>Password</Label><Input type="password" placeholder="••••••••" className="mt-1" value={password} onChange={(e) => setPassword(e.target.value)} required /></div>

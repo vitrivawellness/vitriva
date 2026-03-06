@@ -40,7 +40,7 @@ const Register = () => {
       <Navbar />
       <div className="container-wide py-20 max-w-md mx-auto">
         <h1 className="text-3xl text-center mb-2">Create Account</h1>
-        <p className="text-center text-muted-foreground mb-8">Join MAISON for a personalized experience</p>
+        <p className="text-center text-muted-foreground mb-8">Join Semms Gen-Tech for a personalized experience</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div><Label>Full Name</Label><Input placeholder="Jane Doe" className="mt-1" value={fullName} onChange={(e) => setFullName(e.target.value)} required /></div>
           <div><Label>Email</Label><Input type="email" placeholder="you@example.com" className="mt-1" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>

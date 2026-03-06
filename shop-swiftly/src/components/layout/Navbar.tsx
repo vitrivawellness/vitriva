@@ -29,14 +29,14 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
       <div className="container-wide flex items-center justify-between h-16">
-        <Link to="/" className="font-serif text-2xl tracking-wider">MAISON</Link>
+        <Link to="/" className="font-serif text-2xl tracking-wider font-bold text-primary">Semms Gen-Tech</Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide uppercase">
           <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link>
           <Link to="/products" className="text-muted-foreground hover:text-foreground transition-colors">Shop</Link>
-          <Link to="/products?category=furniture" className="text-muted-foreground hover:text-foreground transition-colors">Furniture</Link>
-          <Link to="/products?category=lighting" className="text-muted-foreground hover:text-foreground transition-colors">Lighting</Link>
-          <Link to="/products?category=decor" className="text-muted-foreground hover:text-foreground transition-colors">Decor</Link>
+          <Link to="/products?category=desktop-computers" className="text-muted-foreground hover:text-foreground transition-colors">Computers</Link>
+          <Link to="/products?category=laptops" className="text-muted-foreground hover:text-foreground transition-colors">Laptops</Link>
+          <Link to="/products?category=accessories" className="text-muted-foreground hover:text-foreground transition-colors">Accessories</Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -77,7 +77,7 @@ const Navbar = () => {
 
       {mobileOpen && (
         <div className="md:hidden border-t bg-background px-4 py-6 space-y-4">
-          {["Home:/", "Shop:/products", "Furniture:/products?category=furniture", "Lighting:/products?category=lighting", "Decor:/products?category=decor"].map(item => {
+          {["Home:/", "Shop:/products", "Computers:/products?category=desktop-computers", "Laptops:/products?category=laptops", "Accessories:/products?category=accessories"].map(item => {
             const [label, path] = item.split(":");
             return (
               <Link key={label} to={path} className="block text-lg font-medium" onClick={() => setMobileOpen(false)}>

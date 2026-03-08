@@ -75,37 +75,37 @@ const Products = () => {
           {/* Sidebar Filters */}
           <aside className={`${showFilters ? "block" : "hidden"} lg:block w-full lg:w-56 shrink-0 space-y-8`}>
             <div>
-              <h3 className="font-semibold text-sm uppercase tracking-wider mb-3">Category</h3>
-              <div className="space-y-2">
+              <h3 className="font-serif font-bold text-primary text-base uppercase tracking-wider mb-4">Category</h3>
+              <div className="space-y-3">
                 <button
-                  className={`block text-sm ${!categoryFilter ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`block text-base text-left ${!categoryFilter ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"}`}
                   onClick={() => setSearchParams({})}
                 >All Products</button>
                 {categories.map((cat: any) => (
                   <button
                     key={cat.id}
-                    className={`block text-sm ${categoryFilter === cat.slug ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"}`}
+                    className={`block text-base text-left ${categoryFilter === cat.slug ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"}`}
                     onClick={() => setSearchParams({ category: cat.slug })}
                   >{cat.name}</button>
                 ))}
               </div>
             </div>
             <div>
-              <h3 className="font-semibold text-sm uppercase tracking-wider mb-3">Price Range</h3>
-              <div className="flex items-center gap-2 mb-4">
+              <h3 className="font-serif font-bold text-primary text-base uppercase tracking-wider mb-4">Price Range</h3>
+              <div className="flex items-center gap-3 mb-5">
                 <Input 
                   type="number" 
                   value={priceRange[0]} 
                   onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])} 
-                  className="h-8 text-xs w-full" 
+                  className="h-9 text-sm w-full font-medium" 
                   placeholder="Min"
                 />
-                <span className="text-muted-foreground">-</span>
+                <span className="text-muted-foreground font-medium">-</span>
                 <Input 
                   type="number" 
                   value={priceRange[1]} 
                   onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])} 
-                  className="h-8 text-xs w-full" 
+                  className="h-9 text-sm w-full font-medium" 
                   placeholder="Max"
                 />
               </div>

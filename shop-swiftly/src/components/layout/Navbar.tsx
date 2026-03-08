@@ -6,12 +6,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { itemCount } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: api.getCategories
+  });
 
   // Read user from localStorage to conditionally render Admin link
   const userStr = localStorage.getItem("user");
@@ -45,9 +51,11 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide uppercase">
           <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link>
           <Link to="/products" className="text-muted-foreground hover:text-foreground transition-colors">Shop</Link>
-          <Link to="/products?category=desktop-computers" className="text-muted-foreground hover:text-foreground transition-colors">Computers</Link>
-          <Link to="/products?category=laptops" className="text-muted-foreground hover:text-foreground transition-colors">Laptops</Link>
-          <Link to="/products?category=accessories" className="text-muted-foreground hover:text-foreground transition-colors">Accessories</Link>
+          {categories.slice(0, 4).map((cat: any) => (
+            <Link key={cat.id} to={`/products?category=${cat.slug}`} className="text-muted-foreground hover:text-foreground transition-colors">
+              {cat.name}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -112,14 +120,13 @@ const Navbar = () => {
               <Search className="h-5 w-5" />
             </button>
           </form>
-          {["Home:/", "Shop:/products", "Computers:/products?category=desktop-computers", "Laptops:/products?category=laptops", "Accessories:/products?category=accessories"].map(item => {
-            const [label, path] = item.split(":");
-            return (
-              <Link key={label} to={path} className="block text-lg font-medium" onClick={() => setMobileOpen(false)}>
-                {label}
-              </Link>
-            );
-          })}
+          <Link to="/" className="block text-lg font-medium" onClick={() => setMobileOpen(false)}>Home</Link>
+          <Link to="/products" className="block text-lg font-medium" onClick={() => setMobileOpen(false)}>Shop</Link>
+          {categories.slice(0, 6).map((cat: any) => (
+            <Link key={cat.id} to={`/products?category=${cat.slug}`} className="block text-lg font-medium" onClick={() => setMobileOpen(false)}>
+              {cat.name}
+            </Link>
+          ))}
           {isAdmin && (
             <Link to="/admin" className="block text-lg font-medium text-primary" onClick={() => setMobileOpen(false)}>
               Admin Panel

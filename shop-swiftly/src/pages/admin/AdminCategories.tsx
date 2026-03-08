@@ -1,13 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { Plus, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 const AdminCategories = () => {
+  const queryClient = useQueryClient();
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: api.getCategories,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => api.deleteCategory(id),
+    onSuccess: () => {
+      toast.success("Category deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+    onError: () => toast.error("Failed to delete category (it may have products attached)"),
   });
 
   return (
@@ -26,6 +36,7 @@ const AdminCategories = () => {
               <th className="px-4 py-3 font-medium">Slug</th>
               <th className="px-4 py-3 font-medium">Products</th>
               <th className="px-4 py-3 font-medium">Description</th>
+              <th className="px-4 py-3 font-medium text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -39,6 +50,21 @@ const AdminCategories = () => {
                 <td className="px-4 py-3 text-muted-foreground">{cat.slug}</td>
                 <td className="px-4 py-3">{cat.product_count || 0}</td>
                 <td className="px-4 py-3 text-muted-foreground">{cat.description}</td>
+                <td className="px-4 py-3 text-right">
+                  <Button 
+                    variant="destructive" 
+                    size="sm" 
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      if (confirm("Are you sure you want to delete this category?")) {
+                        deleteMutation.mutate(cat.id);
+                      }
+                    }}
+                    disabled={deleteMutation.isPending}
+                  >
+                    Delete
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>

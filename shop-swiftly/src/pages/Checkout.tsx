@@ -18,6 +18,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [orderId] = useState(`ORD-${Date.now().toString(36).toUpperCase()}`);
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null;
 
   const [shippingDetails, setShippingDetails] = useState({
     name: "",
@@ -160,7 +161,11 @@ const Checkout = () => {
 
             <div className="flex gap-4 pt-4">
               <Button variant="outline" asChild><Link to="/cart">Back to Cart</Link></Button>
-              <Button className="flex-1" onClick={handlePlaceOrder}>Place Order — ₹{total.toFixed(2)}</Button>
+              {user ? (
+                <Button className="flex-1" onClick={handlePlaceOrder}>Place Order — ₹{total.toFixed(2)}</Button>
+              ) : (
+                <Button className="flex-1" onClick={() => navigate("/login")}>Log in to Place Order</Button>
+              )}
             </div>
           </div>
         )}

@@ -9,6 +9,7 @@ import Footer from "@/components/layout/Footer";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { SlidersHorizontal, X } from "lucide-react";
 
 const Products = () => {
@@ -91,11 +92,24 @@ const Products = () => {
             </div>
             <div>
               <h3 className="font-semibold text-sm uppercase tracking-wider mb-3">Price Range</h3>
-              <Slider min={0} max={4000} step={50} value={priceRange} onValueChange={setPriceRange} className="mb-2" />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>₹{priceRange[0]}</span>
-                <span>₹{priceRange[1]}</span>
+              <div className="flex items-center gap-2 mb-4">
+                <Input 
+                  type="number" 
+                  value={priceRange[0]} 
+                  onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])} 
+                  className="h-8 text-xs w-full" 
+                  placeholder="Min"
+                />
+                <span className="text-muted-foreground">-</span>
+                <Input 
+                  type="number" 
+                  value={priceRange[1]} 
+                  onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])} 
+                  className="h-8 text-xs w-full" 
+                  placeholder="Max"
+                />
               </div>
+              <Slider min={0} max={100000} step={100} value={priceRange} onValueChange={setPriceRange} className="mb-2" />
             </div>
             {(categoryFilter || searchFilter) && (
               <Button variant="ghost" size="sm" onClick={() => {

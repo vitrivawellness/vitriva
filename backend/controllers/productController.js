@@ -24,9 +24,12 @@ exports.getProducts = async (req, res) => {
         }
 
         if (search) {
-            query += ` AND (name ILIKE $${paramIdx} OR description ILIKE $${paramIdx})`;
-            params.push(`%${search}%`);
-            paramIdx++;
+            const keywords = search.trim().split(/\s+/);
+            keywords.forEach(keyword => {
+                query += ` AND (name ILIKE $${paramIdx} OR description ILIKE $${paramIdx})`;
+                params.push(`%${keyword}%`);
+                paramIdx++;
+            });
         }
 
         // Determine sorting

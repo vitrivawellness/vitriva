@@ -14,6 +14,7 @@ import { SlidersHorizontal, X } from "lucide-react";
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryFilter = searchParams.get("category") || "";
+  const searchFilter = searchParams.get("search") || "";
   const [sortBy, setSortBy] = useState("newest");
   const [priceRange, setPriceRange] = useState([0, 4000]);
   const [showFilters, setShowFilters] = useState(false);
@@ -26,13 +27,15 @@ const Products = () => {
 
   // Fetch Products
   const { data, isLoading } = useQuery({
-    queryKey: ['products', categoryFilter, sortBy, priceRange],
+    queryKey: ['products', categoryFilter, sortBy, priceRange, searchFilter],
     queryFn: () => api.getProducts({
-      category: categories.find((c: any) => c.slug === categoryFilter)?.id, // Send ID to backend, or adjust backend to accept slug
+      category: categoryFilter ? categories.find((c: any) => c.slug === categoryFilter)?.id : undefined,
       min_price: priceRange[0],
       max_price: priceRange[1],
-      sort: sortBy
-    })
+      sort: sortBy,
+      search: searchFilter || undefined
+    }),
+    enabled: !categoryFilter || categories.length > 0
   });
 
   const filtered = data?.products || [];
@@ -42,7 +45,11 @@ const Products = () => {
       <Navbar />
       <div className="container-wide py-10">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl mb-2">{categoryFilter ? categories.find((c: any) => c.slug === categoryFilter)?.name || "Shop" : "All Products"}</h1>
+          <h1 className="text-3xl md:text-4xl mb-2">
+            {searchFilter ? `Search results for "${searchFilter}"` 
+            : categoryFilter ? categories.find((c: any) => c.slug === categoryFilter)?.name || "Shop" 
+            : "All Products"}
+          </h1>
           <p className="text-muted-foreground">{data?.total || 0} products</p>
         </div>
 
@@ -90,8 +97,13 @@ const Products = () => {
                 <span>₹{priceRange[1]}</span>
               </div>
             </div>
-            {categoryFilter && (
-              <Button variant="ghost" size="sm" onClick={() => setSearchParams({})}>
+            {(categoryFilter || searchFilter) && (
+              <Button variant="ghost" size="sm" onClick={() => {
+                const newParams = new URLSearchParams(searchParams);
+                newParams.delete("category");
+                newParams.delete("search");
+                setSearchParams(newParams);
+              }}>
                 <X className="h-3 w-3 mr-1" /> Clear Filters
               </Button>
             )}

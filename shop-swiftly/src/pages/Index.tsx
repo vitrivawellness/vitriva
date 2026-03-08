@@ -32,13 +32,13 @@ const scaleIn = {
   }),
 } as const;
 
-const categoryIcons = [
-  { name: "Desktop Computers", icon: Monitor, gradient: "from-blue-600 to-blue-800" },
-  { name: "Laptops", icon: Laptop, gradient: "from-cyan-500 to-blue-600" },
-  { name: "Printers", icon: Printer, gradient: "from-red-500 to-red-700" },
-  { name: "Accessories", icon: Keyboard, gradient: "from-purple-500 to-indigo-600" },
-  { name: "Speakers & Peripherals", icon: Speaker, gradient: "from-orange-500 to-red-500" },
-  { name: "Headphones & Audio", icon: Headphones, gradient: "from-emerald-500 to-teal-600" },
+const categoryStyles = [
+  { icon: Monitor, gradient: "from-blue-600 to-blue-800" },
+  { icon: Laptop, gradient: "from-cyan-500 to-blue-600" },
+  { icon: Printer, gradient: "from-red-500 to-red-700" },
+  { icon: Keyboard, gradient: "from-purple-500 to-indigo-600" },
+  { icon: Speaker, gradient: "from-orange-500 to-red-500" },
+  { icon: Headphones, gradient: "from-emerald-500 to-teal-600" },
 ];
 
 const Index = () => {
@@ -120,7 +120,7 @@ const Index = () => {
               <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row gap-4 mb-10">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 text-lg px-10 py-7 rounded-xl font-bold shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 transition-all duration-300 hover:scale-105"
+                  className="bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 text-lg px-10 py-7 rounded-xl font-bold shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 hover:scale-105"
                   asChild
                 >
                   <Link to="/products" className="flex items-center gap-2">
@@ -268,17 +268,18 @@ const Index = () => {
             variants={stagger}
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5"
           >
-            {categoryIcons.map((cat, index) => {
-              const Icon = cat.icon;
+            {categories.map((cat: any, index: number) => {
+              const style = categoryStyles[index % categoryStyles.length];
+              const Icon = style.icon;
               return (
-                <motion.div key={index} variants={scaleIn} custom={index}>
+                <motion.div key={cat.id} variants={scaleIn} custom={index}>
                   <Link
-                    to="/products"
+                    to={`/products?category=${cat.slug}`}
                     className="group relative flex flex-col items-center text-center bg-card border border-border hover:border-primary/40 rounded-2xl p-6 py-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden"
                   >
                     {/* Glow effect on hover */}
-                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br ${cat.gradient} transition-opacity duration-500`} />
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br ${style.gradient} transition-opacity duration-500`} />
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${style.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <h3 className="text-sm font-semibold relative z-10">{cat.name}</h3>

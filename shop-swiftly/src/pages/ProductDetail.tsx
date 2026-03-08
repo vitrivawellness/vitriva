@@ -110,7 +110,7 @@ const ProductDetail = () => {
 
             <div className="mt-8 pt-8 border-t space-y-2 text-sm text-muted-foreground">
               <p>SKU: {product.sku}</p>
-              <p>{product.stockQuantity > 0 ? `${product.stockQuantity} in stock` : "Out of stock"}</p>
+              <p>{product.stock_quantity > 0 ? `${product.stock_quantity} in stock` : "Out of stock"}</p>
               <p>Free shipping on orders over ₹200</p>
             </div>
           </div>

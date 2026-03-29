@@ -40,12 +40,21 @@ app.get('/health', (req, res) => {
     res.status(200).json({ status: 'OK', ts: new Date() });
 });
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'production ') { // taking trailing spaces into account occasionally
-    app.use(express.static(path.join(__dirname, '../shop-swiftly/dist')));
-
+// Serve frontend in production (Only if explicitly enabled or files exist)
+if (process.env.SERVE_FRONTEND === 'true' || process.env.NODE_ENV === 'serve_static') {
+    const distPath = path.join(__dirname, '../shop-swiftly/dist');
+    app.use(express.static(distPath));
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../shop-swiftly/dist', 'index.html'));
+        res.sendFile(path.resolve(distPath, 'index.html'));
+    });
+} else {
+    // Default success message for backend root URL
+    app.get('/', (req, res) => {
+        res.status(200).json({ 
+            message: 'Vitriva API is running!', 
+            status: 'OK',
+            timestamp: new Date().toISOString()
+        });
     });
 }
 

@@ -93,15 +93,24 @@ const AdminProducts = () => {
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    
     setUploadingImage(true);
     try {
-      const res = await api.uploadImage(file);
-      setFormData(prev => ({ ...prev, images: [...prev.images, res.url] }));
-      toast.success("Image uploaded!");
+      const uploadPromises = files.map(file => api.uploadImage(file));
+      const results = await Promise.all(uploadPromises);
+      const urls = results.map(res => res.url);
+      
+      setFormData(prev => ({ 
+        ...prev, 
+        images: [...prev.images, ...urls] 
+      }));
+      
+      toast.success(`${files.length} Image(s) uploaded successfully!`);
     } catch (error: any) {
-      toast.error("Failed to upload image");
+      console.error('Multi-upload error:', error);
+      toast.error(error.message || "Failed to upload one or more images");
     } finally {
       setUploadingImage(false);
     }
@@ -191,26 +200,43 @@ const AdminProducts = () => {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
-              <div>
+              </div>              <div>
                 <label className="text-sm font-medium">Product Images</label>
-                <div className="flex items-center gap-4 mt-2">
+                <div className="grid grid-cols-4 gap-4 mt-2">
                   {formData.images.map((url, i) => (
-                    <img key={i} src={url} alt="Uploaded" className="h-16 w-16 object-cover rounded-md border" />
+                    <div key={i} className="relative group aspect-square">
+                      <img src={url} alt="Uploaded" className="h-full w-full object-cover rounded-md border shadow-sm" />
+                      <button 
+                        type="button" 
+                        className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" 
+                        onClick={() => setFormData(p => ({ ...p, images: p.images.filter((_, idx) => idx !== i) }))}
+                      >
+                        ×
+                      </button>
+                    </div>
                   ))}
-                  <Button type="button" variant="outline" className="relative h-16 w-16 shrink-0" disabled={uploadingImage}>
-                    {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImageIcon className="h-4 w-4" />}
-                    <input type="file" className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onChange={handleImageUpload} accept="image/*" disabled={uploadingImage} />
+                  <Button type="button" variant="outline" className="relative aspect-square h-auto w-full flex-col gap-2 border-dashed border-2 hover:bg-slate-50 transition-colors" disabled={uploadingImage}>
+                    {uploadingImage ? <Loader2 className="h-6 w-6 animate-spin text-medical-purple" /> : <ImageIcon className="h-6 w-6 text-slate-400" />}
+                    <span className="text-[10px] font-bold uppercase text-slate-500">{uploadingImage ? "Uploading..." : "Add Images"}</span>
+                    <input 
+                      type="file" 
+                      multiple 
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
+                      onChange={handleImageUpload} 
+                      accept="image/*" 
+                      disabled={uploadingImage} 
+                    />
                   </Button>
                 </div>
               </div>
-              <Button type="submit" className="w-full" disabled={createMutation.isPending || uploadingImage}>
-                {createMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              <Button type="submit" className="w-full h-12 text-base font-bold shadow-medical" disabled={createMutation.isPending || uploadingImage}>
+                {createMutation.isPending && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
                 Create Product
               </Button>
             </form>
           </DialogContent>
         </Dialog>
+      </div>
 
         <Dialog open={isEditOpen} onOpenChange={(open) => {
           setIsEditOpen(open);
@@ -219,36 +245,41 @@ const AdminProducts = () => {
             setFormData({ name: "", sku: "", price: "", stock_quantity: "", description: "", category_id: "", images: [] });
           }
         }}>
-          <DialogContent>
+          <DialogContent className="max-w-xl">
             <DialogHeader>
-              <DialogTitle>Edit Product</DialogTitle>
-              <DialogDescription className="sr-only">Update product details and stock.</DialogDescription>
+              <DialogTitle>Edit Product: {formData.name}</DialogTitle>
+              <DialogDescription className="sr-only">Update product details and manage the image gallery.</DialogDescription>
             </DialogHeader>
             <form onSubmit={handleEditSubmit} className="space-y-4">
-              <div>
-                <label className="text-sm font-medium">Name</label>
-                <Input value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} required />
-              </div>
-              <div>
-                <label className="text-sm font-medium">SKU</label>
-                <Input value={formData.sku} onChange={e => setFormData({ ...formData, sku: e.target.value })} />
-              </div>
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Price (₹)</label>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Name</label>
+                  <Input value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} required />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">SKU</label>
+                  <Input value={formData.sku} onChange={e => setFormData({ ...formData, sku: e.target.value })} />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Price (₹)</label>
                   <Input type="number" step="0.01" value={formData.price} onChange={e => setFormData({ ...formData, price: e.target.value })} required />
                 </div>
-                <div>
-                  <label className="text-sm font-medium">Stock</label>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Stock Level</label>
                   <Input type="number" value={formData.stock_quantity} onChange={e => setFormData({ ...formData, stock_quantity: e.target.value })} required />
                 </div>
               </div>
-              <div>
-                <label className="text-sm font-medium">Description</label>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Description</label>
                 <Input value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} />
               </div>
-              <div>
-                <label className="text-sm font-medium">Category</label>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Category</label>
                 <Select value={formData.category_id} onValueChange={(val) => setFormData({ ...formData, category_id: val })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a category" />
@@ -260,29 +291,43 @@ const AdminProducts = () => {
                   </SelectContent>
                 </Select>
               </div>
+
               <div>
-                <label className="text-sm font-medium">Product Images</label>
-                <div className="flex items-center flex-wrap gap-4 mt-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Product Gallery</label>
+                <div className="grid grid-cols-5 gap-4 mt-2">
                   {formData.images.map((url, i) => (
-                    <div key={i} className="relative group">
-                      <img src={url} alt="Uploaded" className="h-16 w-16 object-cover rounded-md border" />
-                      <button type="button" className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => setFormData(p => ({ ...p, images: p.images.filter((_, idx) => idx !== i) }))}>×</button>
+                    <div key={i} className="relative group aspect-square">
+                      <img src={url} alt="Gallery" className="h-full w-full object-cover rounded-md border shadow-sm" />
+                      <button 
+                        type="button" 
+                        className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" 
+                        onClick={() => setFormData(p => ({ ...p, images: p.images.filter((_, idx) => idx !== i) }))}
+                      >
+                        ×
+                      </button>
                     </div>
                   ))}
-                  <Button type="button" variant="outline" className="relative h-16 w-16 shrink-0" disabled={uploadingImage}>
-                    {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImageIcon className="h-4 w-4" />}
-                    <input type="file" className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onChange={handleImageUpload} accept="image/*" disabled={uploadingImage} />
+                  <Button type="button" variant="outline" className="relative aspect-square h-auto w-full flex-col gap-2 border-dashed border-2 hover:bg-slate-50 transition-colors" disabled={uploadingImage}>
+                    {uploadingImage ? <Loader2 className="h-6 w-6 animate-spin text-medical-purple" /> : <ImageIcon className="h-6 w-6 text-slate-400" />}
+                    <span className="text-[10px] font-bold uppercase text-slate-500">{uploadingImage ? "..." : "Add"}</span>
+                    <input 
+                      type="file" 
+                      multiple 
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" 
+                      onChange={handleImageUpload} 
+                      accept="image/*" 
+                      disabled={uploadingImage} 
+                    />
                   </Button>
                 </div>
               </div>
-              <Button type="submit" className="w-full" disabled={updateMutation.isPending || uploadingImage}>
-                {updateMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Save Changes
+              <Button type="submit" className="w-full h-12 text-base font-bold shadow-medical mt-4" disabled={updateMutation.isPending || uploadingImage}>
+                {updateMutation.isPending && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                Save Product Changes
               </Button>
             </form>
           </DialogContent>
         </Dialog>
-      </div>
 
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

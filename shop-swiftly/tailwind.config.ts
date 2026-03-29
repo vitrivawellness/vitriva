@@ -13,7 +13,7 @@ export default {
     extend: {
       fontFamily: {
         serif: ['"DM Serif Display"', 'Georgia', 'serif'],
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', '"DM Sans"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -21,28 +21,40 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
-        secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },
+        primary: { 
+          DEFAULT: "#6C63FF", 
+          foreground: "#FFFFFF",
+          light: "#8F88FF",
+          dark: "#4B44D4"
+        },
+        secondary: { 
+          DEFAULT: "#F3F0FF", 
+          foreground: "#6C63FF" 
+        },
         destructive: { DEFAULT: "hsl(var(--destructive))", foreground: "hsl(var(--destructive-foreground))" },
         muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
-        accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
+        accent: { 
+          DEFAULT: "#00D1FF", 
+          foreground: "#FFFFFF" 
+        },
         popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
         card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+        medical: {
+          purple: "#6C63FF",
+          lavender: "#F3F0FF",
+          blue: "#00D1FF",
+          teal: "#00F5D4",
+        }
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        xl: "20px",
+        lg: "16px",
+        md: "12px",
+        sm: "8px",
+      },
+      boxShadow: {
+        'soft': '0 10px 30px -10px rgba(108, 99, 255, 0.15)',
+        'medical': '0 4px 20px -2px rgba(108, 99, 255, 0.1)',
       },
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },

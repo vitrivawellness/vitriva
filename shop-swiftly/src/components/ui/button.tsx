@@ -9,20 +9,21 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-red-600 text-white hover:bg-red-700",
+        default: "bg-medical-purple text-white hover:bg-primary-dark shadow-soft transition-all duration-300 active:scale-95",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-foreground text-background hover:bg-foreground/90 tracking-wide uppercase text-xs font-sans font-semibold",
-        "hero-outline": "border-2 border-foreground text-foreground hover:bg-foreground hover:text-background tracking-wide uppercase text-xs font-sans font-semibold",
+        outline: "border-2 border-medical-purple/20 bg-background text-medical-purple hover:bg-medical-purple/5 hover:border-medical-purple transition-all",
+        secondary: "bg-medical-lavender text-medical-purple hover:bg-medical-lavender/80",
+        ghost: "hover:bg-medical-lavender hover:text-medical-purple",
+        link: "text-medical-purple underline-offset-4 hover:underline",
+        hero: "bg-medical-purple text-white hover:bg-primary-dark tracking-wide uppercase text-sm font-sans font-bold shadow-soft",
+        "hero-outline": "border-2 border-medical-purple text-medical-purple hover:bg-medical-purple hover:text-white tracking-wide uppercase text-sm font-sans font-bold",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "h-12 px-6 py-3 rounded-2xl",
+        sm: "h-10 rounded-xl px-4",
+        lg: "h-14 rounded-2xl px-10 text-lg",
+        xl: "h-16 rounded-[20px] px-12 text-xl font-bold",
+        icon: "h-12 w-12 rounded-xl",
       },
     },
     defaultVariants: {

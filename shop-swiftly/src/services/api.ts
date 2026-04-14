@@ -183,16 +183,25 @@ export const api = {
     },
 
     updateProduct: async (id: string, productData: any) => {
+        const session = await supabase.auth.getSession();
+        if (!session.data.session) {
+            throw new Error("Your login session has expired. Please log out and log back in to save changes.");
+        }
+
         const { id: _, created_at, updated_at, ...updateData } = productData;
         const { data, error } = await supabase
             .from('products')
             .update(updateData)
             .eq('id', id)
-            .select()
-            .single();
+            .select();
         
         if (error) throw error;
-        return data;
+        
+        if (!data || data.length === 0) {
+            throw new Error("Update failed. You might not have permission (check RLS), or the product doesn't exist.");
+        }
+        
+        return data[0];
     },
 
     deleteProduct: async (id: string) => {

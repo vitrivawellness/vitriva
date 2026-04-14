@@ -44,20 +44,23 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b shadow-medical h-20 flex items-center">
+    <header className="sticky top-0 z-50 bg-[#0A61A6] text-white shadow-md h-20 flex items-center">
       <div className="container-wide flex items-center justify-between w-full">
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 bg-medical-purple rounded-xl flex items-center justify-center shadow-soft group-hover:scale-105 transition-transform duration-300">
-            <span className="text-white font-serif font-bold italic text-2xl">V</span>
+          <div className="w-11 h-11 bg-white rounded-xl flex items-center justify-center shadow-soft group-hover:scale-105 transition-transform duration-300">
+            <span className="text-[#0A61A6] font-serif font-bold italic text-2xl">V</span>
           </div>
-          <span className="font-serif text-2xl tracking-tight font-bold text-medical-purple">Vitriva Wellness</span>
+          <div className="flex flex-col justify-center">
+            <span className="font-serif text-2xl tracking-tight font-bold text-white leading-none">Vitriva Wellness</span>
+            <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-white/70 mt-1">Vitamin + Retrieval</span>
+          </div>
         </Link>
 
         <nav className="hidden md:flex items-center gap-10 text-sm font-semibold tracking-wide uppercase">
-          <Link to="/" className="text-foreground/70 hover:text-medical-purple transition-all">Home</Link>
-          <Link to="/products" className="text-foreground/70 hover:text-medical-purple transition-all">Shop All</Link>
-          <Link to="/products?category=magnesium" className="text-foreground/70 hover:text-medical-purple transition-all uppercase">Magnesium</Link>
-          <Link to="/products?category=wellness" className="text-foreground/70 hover:text-medical-purple transition-all uppercase">Wellness</Link>
+          <Link to="/" className="text-white/80 hover:text-white transition-all">Home</Link>
+          <Link to="/products" className="text-white/80 hover:text-white transition-all">Shop All</Link>
+          <Link to="/products?category=magnesium" className="text-white/80 hover:text-white transition-all uppercase">Magnesium</Link>
+          <Link to="/products?category=wellness" className="text-white/80 hover:text-white transition-all uppercase">Wellness</Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -65,44 +68,44 @@ const Navbar = () => {
             <Input 
               type="search" 
               placeholder="Search products..." 
-              className="w-48 lg:w-64 pr-8 h-10 rounded-full bg-slate-50 border-none ring-offset-medical-purple"
+              className="w-48 lg:w-64 pr-8 h-10 rounded-full bg-white/10 text-white placeholder:text-white/50 border-white/20 focus:bg-white/20"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-medical-purple">
+            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white">
               <Search className="h-4 w-4" />
             </button>
           </form>
           {isAdmin && (
-            <Button variant="outline" size="sm" asChild className="hidden md:flex font-medium border-medical-purple/20 text-medical-purple hover:bg-medical-purple/5">
+            <Button variant="outline" size="sm" asChild className="hidden md:flex font-medium border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white">
               <Link to="/admin">Admin Panel</Link>
             </Button>
           )}
           {user ? (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" asChild title="My Account" className="hover:text-medical-purple">
+              <Button variant="ghost" size="icon" asChild title="My Account" className="text-white hover:bg-white/10 hover:text-white">
                 <Link to="/account"><User className="h-5 w-5" /></Link>
               </Button>
-              <Button variant="ghost" size="icon" onClick={handleLogout} title="Log Out" className="hover:text-red-500">
+              <Button variant="ghost" size="icon" onClick={handleLogout} title="Log Out" className="text-white hover:bg-red-500/20 hover:text-red-300">
                 <LogOut className="h-5 w-5" />
               </Button>
             </div>
           ) : (
-            <Button variant="ghost" size="icon" asChild className="hover:text-medical-purple">
+            <Button variant="ghost" size="icon" asChild className="text-white hover:bg-white/10 hover:text-white">
               <Link to="/login"><User className="h-5 w-5" /></Link>
             </Button>
           )}
-          <Button variant="ghost" size="icon" className="relative hover:text-medical-purple" asChild>
+          <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 hover:text-white" asChild>
             <Link to="/cart">
               <ShoppingBag className="h-5 w-5" />
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-medical-purple text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-vitriva-accent text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
             </Link>
           </Button>
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
+          <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>

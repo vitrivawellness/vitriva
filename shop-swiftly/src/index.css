@@ -4,6 +4,33 @@
 
 @layer base {
 :root {
+    --vitriva-primary:        #1B5E20;   /* CTAs, active states */
+    --vitriva-primary-light:  #2E7D32;   /* Hover states */
+    --vitriva-primary-xlight: #E8F5E9;   /* Tinted backgrounds */
+
+    /* ACCENT — Warm Saffron (energy, India, urgency) */
+    --vitriva-accent:         #E65100;   /* Sale badges, limited tags */
+    --vitriva-accent-light:   #FF6D00;   /* Hover on accent elements */
+    --vitriva-accent-xlight:  #FFF3E0;   /* Warm tinted sections */
+
+    /* SECONDARY — Golden Turmeric (warmth, wellness) */
+    --vitriva-gold:           #F9A825;   /* Stars, highlights, icons */
+    --vitriva-gold-light:     #FFF8E1;   /* Card highlights */
+
+    /* NEUTRAL — Warm Off-White (not cold clinical white) */
+    --vitriva-bg:             #FAFAF7;   /* Page background */
+    --vitriva-surface:        #FFFFFF;   /* Cards */
+    --vitriva-surface-2:      #F5F5F0;   /* Alternate sections */
+
+    /* TEXT */
+    --vitriva-text-primary:   #1A1A1A;   /* Headlines */
+    --vitriva-text-secondary: #4A4A4A;   /* Body copy */
+    --vitriva-text-muted:     #7A7A7A;   /* Labels, captions */
+
+    /* SEMANTIC */
+    --vitriva-success:        #1B5E20;
+    --vitriva-danger:         #B71C1C;
+    --vitriva-warning:        #E65100;
     --background: 255 100% 99%;
     --foreground: 244 50% 15%;
     --card: 0 0% 100%;
@@ -70,10 +97,49 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply antialiased;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--vitriva-bg);
+    color: var(--vitriva-text-primary);
   }
   h1, h2, h3, h4 {
     @apply font-serif;
+  }
+  /* Emotional taglines — use Lora italic */
+  .tagline, .hero-sub, .section-quote {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--vitriva-text-secondary);
+  }
+
+  /* Price display — bold, green, large */
+  .price-display {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    color: var(--vitriva-primary);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  /* Strikethrough MRP — red-muted */
+  .price-mrp {
+    text-decoration: line-through;
+    color: var(--vitriva-text-muted);
+    font-size: 0.875rem;
+  }
+
+  /* CTA button text */
+  .btn-primary {
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: none; /* Never all-caps — reduces perceived urgency */
+  }
+  
+  @media (max-width: 768px) {
+    .btn-primary, .btn-secondary, button[type="submit"] {
+      min-height: 48px;
+      font-size: 1rem;
+      border-radius: 14px;
+    }
   }
 }
 

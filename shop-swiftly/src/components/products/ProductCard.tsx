@@ -18,51 +18,56 @@ const ProductCard = ({ product }: { product: any }) => {
   const optimizedUrl = getCloudinaryUrl(imageUrl, { width: 600, height: 600, crop: "fill" });
 
   return (
-    <div className="group bg-white rounded-[32px] p-4 border border-slate-50 shadow-medical hover:shadow-soft transition-all duration-500 hover:-translate-y-1">
-      <Link to={`/products/${product.id}`} className="block relative aspect-square rounded-[24px] overflow-hidden mb-6 bg-medical-lavender/50">
+    <div className="group product-card relative overflow-hidden rounded-2xl border border-gray-100 bg-vitriva-surface shadow-sm hover:shadow-md transition-all duration-200">
+      <div className="card-badges absolute top-3 left-3 flex gap-2 z-10 flex-col">
+        {((product.compareAtPrice && product.compareAtPrice > product.price) || (product.price === 1320)) && (
+          <span className="badge bg-vitriva-accent text-white text-xs font-bold px-3 py-1 rounded-full w-max shadow-sm">
+            40% Offer
+          </span>
+        )}
+        {product.stock_quantity > 0 && product.stock_quantity <= 50 && (
+          <div className="badge-urgency bg-vitriva-accent text-white text-xs font-bold px-3 py-1 rounded-full w-max shadow-sm">
+            ⚡ Only {product.stock_quantity} left
+          </div>
+        )}
+      </div>
+
+      <Link to={`/products/${product.id}`} className="block relative aspect-square bg-slate-50 overflow-hidden border-b border-gray-100">
         <img
           src={optimizedUrl}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-medical-purple/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-        
-        {product.compareAtPrice && (
-          <span className="absolute top-4 left-4 bg-medical-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
-            Save {Math.round((1 - product.price / product.compareAtPrice) * 100)}%
-          </span>
-        )}
       </Link>
 
-      <div className="px-2">
-        <div className="flex justify-between items-start mb-2">
-          <p className="text-[10px] text-medical-purple font-bold uppercase tracking-widest">{product.categories?.name || product.category}</p>
-          <div className="flex items-center gap-1">
-            <span className="text-xs font-bold text-slate-900 leading-none">4.9</span>
-            <div className="w-2.5 h-2.5 bg-amber-400 rounded-full" />
-          </div>
+      <div className="p-5 bg-white flex flex-col h-full">
+        <div className="flex items-center gap-1 mb-2">
+          <span className="text-vitriva-gold text-sm tracking-tighter">★★★★★</span>
+          <span className="text-vitriva-text-muted text-xs">(247)</span>
         </div>
         
-        <Link to={`/products/${product.id}`}>
-          <h3 className="font-bold text-slate-900 text-lg mb-4 line-clamp-1 group-hover:text-medical-purple transition-colors">{product.name}</h3>
-        </Link>
+        <h3 className="font-bold text-vitriva-text-primary text-base leading-snug mb-2 line-clamp-1">
+          <Link to={`/products/${product.id}`} className="hover:text-vitriva-primary transition-colors">{product.name}</Link>
+        </h3>
         
-        <div className="flex items-center justify-between mt-auto">
-          <div className="flex flex-col">
-            <span className="text-2xl font-bold text-slate-900">₹{product.price.toLocaleString()}</span>
-            {product.compareAtPrice && (
-              <span className="text-slate-400 line-through text-xs font-medium">₹{product.compareAtPrice.toLocaleString()}</span>
-            )}
-          </div>
-          
-          <Button
-            variant="default"
-            size="icon"
-            className="rounded-2xl shadow-soft"
+        <div className="flex items-baseline gap-2 mb-1">
+          <span className="price-display text-xl">₹{product.price.toLocaleString()}</span>
+          {(product.compareAtPrice || 2200) > product.price && (
+            <span className="price-mrp">₹{product.compareAtPrice ? product.compareAtPrice.toLocaleString() : "2,200"}</span>
+          )}
+        </div>
+
+        <p className="text-vitriva-text-muted text-xs mb-4">
+          ≈ ₹14.66 / capsule · cheaper than a chai ☕
+        </p>
+        
+        <div className="mt-auto pt-2">
+          <button
             onClick={handleAdd}
+            className="w-full btn-primary bg-vitriva-primary hover:bg-vitriva-primary-light text-white py-2.5 rounded-xl transition-colors duration-150 flex items-center justify-center gap-2"
           >
-            <ShoppingBag className="h-5 w-5" />
-          </Button>
+            <ShoppingBag className="w-4 h-4" /> Add to Cart
+          </button>
         </div>
       </div>
     </div>

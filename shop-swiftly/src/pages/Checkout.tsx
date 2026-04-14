@@ -165,7 +165,13 @@ const Checkout = () => {
 
           {step === 2 && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <h1 className="text-4xl font-serif font-bold text-slate-900 mb-10">Payment Gateway</h1>
+              <h1 className="text-4xl font-serif font-bold text-slate-900 mb-6">Payment Gateway</h1>
+              <div className="flex flex-wrap gap-4 items-center justify-center bg-slate-50 py-3 px-4 rounded-xl border border-slate-100 mb-8 text-xs font-semibold text-slate-500">
+                <span className="flex items-center gap-1">🔒 256-bit SSL encrypted</span>
+                <span className="flex items-center gap-1">📦 Ships in 24 hours</span>
+                <span className="flex items-center gap-1">↩️ 30-day returns</span>
+                <span className="flex items-center gap-1">📞 Support: 9AM–6PM IST</span>
+              </div>
               <div className="bg-medical-lavender/20 rounded-3xl p-8 border border-medical-purple/10 mb-10">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">

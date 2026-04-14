@@ -30,8 +30,8 @@ const Index = () => {
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       <Navbar />
 
-      {/* === HERO SECTION === */}
-      <section className="relative pt-24 pb-40 overflow-hidden bg-gradient-to-b from-medical-lavender via-white to-white">
+      {/* HERO SECTION — Psychological hook */}
+      <section className="relative pt-24 pb-40 overflow-hidden bg-vitriva-primary-xlight">
         <div className="container-wide relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -41,42 +41,40 @@ const Index = () => {
               custom={0}
               className="max-w-xl"
             >
-              <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-medical-purple uppercase bg-white rounded-full border border-medical-purple/10 shadow-sm">
-                Science-Backed Wellness
-              </span>
-              <h1 className="text-6xl md:text-8xl font-serif font-bold leading-[1.1] mb-8 text-slate-900">
-                Precision <br />
-                <span className="text-medical-purple italic">Health</span>
-              </h1>
-              <p className="text-xl text-slate-500 mb-10 leading-relaxed font-light">
-                Premium products designed for your well-being. Science-backed. Highly effective. Essential nutrition.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-5 mb-12">
-                <Button size="lg" className="bg-medical-purple text-white hover:bg-primary-dark px-10 py-7 rounded-2xl text-lg font-bold shadow-soft transition-all duration-300">
-                  Shop Collection
-                </Button>
-                <div className="flex items-center gap-4 px-5 py-2 bg-white rounded-2xl shadow-medical border border-slate-50">
-                  <div className="flex -space-x-1.5">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <span className="text-sm font-semibold text-slate-600">4.9/5 Average</span>
-                </div>
+              <div className="flex flex-wrap items-center gap-4 mb-8 text-sm font-semibold text-vitriva-primary bg-white/60 w-fit px-4 py-2 rounded-full border border-vitriva-primary/10">
+                <span className="flex items-center gap-1">⭐ 4.8/5 from customers</span>
+                <span className="w-1 h-1 rounded-full bg-vitriva-primary/30" />
+                <span className="flex items-center gap-1">🚚 Free delivery above ₹499</span>
               </div>
 
-              <div className="flex flex-wrap gap-10">
-                {[
-                  { icon: ShieldCheck, label: "GMP Certified" },
-                  { icon: Beaker, label: "Lab Verified" },
-                  { icon: Leaf, label: "100% Pure" }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-sm text-slate-400 font-bold uppercase tracking-widest">
-                    <item.icon className="w-5 h-5 text-medical-purple" />
-                    {item.label}
-                  </div>
-                ))}
+              <h1 className="text-4xl md:text-6xl font-serif font-extrabold leading-[1.1] mb-6 text-slate-900 tracking-tight">
+                Stop spending ₹500 on doctor visits.<br />
+                <span className="text-vitriva-primary">Start spending ₹15 on your health.</span>
+              </h1>
+
+              <p className="tagline text-xl mb-8 leading-relaxed max-w-lg">
+                "A stress-free, healthy life at the cost of a chai — that's the Vitriva promise."
+              </p>
+
+               <ul className="space-y-3 mb-10">
+                <li className="flex items-center gap-3 text-slate-700 font-medium">
+                  <CheckCircle2 className="w-5 h-5 text-vitriva-primary" /> No unnecessary fillers. Pure science.
+                </li>
+                <li className="flex items-center gap-3 text-slate-700 font-medium">
+                  <CheckCircle2 className="w-5 h-5 text-vitriva-primary" /> Priced for every Indian family.
+                </li>
+                <li className="flex items-center gap-3 text-slate-700 font-medium">
+                  <CheckCircle2 className="w-5 h-5 text-vitriva-primary" /> Wellness that lasts.
+                </li>
+              </ul>
+              
+              <div className="flex flex-col gap-3 max-w-sm">
+                <Button size="lg" asChild className="btn-primary w-full bg-vitriva-primary text-white hover:bg-vitriva-primary-light py-7 rounded-2xl text-lg shadow-soft transition-all duration-300">
+                  <Link to="/products">Shop Now — Free Delivery Today</Link>
+                </Button>
+                <p className="text-center text-sm font-bold text-vitriva-accent">
+                  🔥 143 people bought this week
+                </p>
               </div>
             </motion.div>
 
@@ -86,80 +84,39 @@ const Index = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >
-              <div className="aspect-square bg-white rounded-[40px] flex items-center justify-center p-16 overflow-hidden shadow-soft border border-medical-lavender relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-medical-lavender/50 to-transparent opacity-60" />
-                <div className="relative z-10 text-center">
-                  <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute -inset-10 border-2 border-dashed border-medical-purple/10 rounded-full"
-                  />
-                  <span className="block text-[180px] font-serif text-medical-purple/10 mb-2 leading-none">Vit</span>
-                  <span className="block text-2xl font-bold tracking-[0.4em] text-medical-purple/30 uppercase">Wellness</span>
-                </div>
+              <div className="aspect-square bg-white rounded-3xl flex items-center justify-center overflow-hidden shadow-soft border border-vitriva-primary/10 relative">
+                <img src="/assets/Hero.jpeg" alt="Vitriva Hero Image" className="w-full h-full object-cover" />
               </div>
-              
-              {/* Feature Tags */}
-              <motion.div 
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-12 -left-8 bg-white p-5 shadow-soft rounded-[24px] flex items-center gap-4 border border-white"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-medical-purple/10 flex items-center justify-center">
-                  <Activity className="w-6 h-6 text-medical-purple" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">Recovery</p>
-                  <p className="font-bold text-slate-800 text-lg">Cellular Level</p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-12 -right-8 bg-white p-5 shadow-soft rounded-[24px] flex items-center gap-4 border border-white"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-medical-blue/10 flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-medical-blue" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">Cognitive</p>
-                  <p className="font-bold text-slate-800 text-lg">Focus Optimized</p>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* === FEATURED BENIFITS === */}
-      <section className="py-32 bg-slate-50">
+      <section className="py-24 bg-white">
         <div className="container-wide">
-          <div className="text-center mb-24">
-            <span className="text-medical-purple font-bold tracking-widest uppercase text-xs mb-4 block">Premium Wellness Essentials</span>
-            <h2 className="text-5xl font-serif font-bold mb-6">How It Works</h2>
-            <div className="w-20 h-1.5 bg-medical-purple rounded-full mx-auto" />
+          <div className="text-center mb-16">
+            <span className="text-vitriva-primary font-bold tracking-widest uppercase text-xs mb-4 block">Premium Wellness Essentials</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">How It Works</h2>
+            <div className="w-20 h-1.5 bg-vitriva-primary rounded-full mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: "Enhanced Bioavailability",
-                icon: Activity,
-                color: "bg-purple-50 text-purple-600",
-                content: "Our premium products ensure maximum absorption and minimal waste.",
+                title: "Clinical Potency",
+                image: "/assets/Home1.jpeg",
+                content: "Our premium products ensure maximum absorption and targeted physiological support.",
               },
               {
-                title: "Neuromuscular Support",
-                icon: Zap,
-                color: "bg-amber-50 text-amber-600",
-                content: "Regulates essential electrolyte balance to support muscle fiber relaxation and nerve signaling.",
+                title: "Absolute Purity",
+                image: "/assets/Home2.jpeg",
+                content: "Lab verified ingredients to ensure 100% purity and enhanced bioavailability.",
               },
               {
-                title: "Stress Modulation",
-                icon: Brain,
-                color: "bg-blue-50 text-blue-600",
-                content: "Formulated to support the hypothalamic-pituitary-adrenal (HPA) axis and cortisol management.",
+                title: "Everyday Value",
+                image: "/assets/Home3.jpeg",
+                content: "Premium wellness solutions at prices that fit seamlessly into your daily lifestyle.",
               }
             ].map((item, i) => (
               <motion.div
@@ -169,99 +126,75 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i}
-                className="bg-white p-10 rounded-[32px] shadow-medical hover:shadow-soft transition-all duration-500 border border-transparent hover:border-medical-purple/10"
+                className="group relative overflow-hidden rounded-3xl bg-vitriva-bg border border-slate-100 hover:shadow-md transition-all duration-300"
               >
-                <div className={`w-16 h-16 ${item.color} rounded-2xl flex items-center justify-center mb-8`}>
-                  <item.icon className="w-8 h-8" />
+                <div className="aspect-[4/3] w-full overflow-hidden">
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-                <p className="text-slate-500 mb-8 font-light leading-relaxed">{item.content}</p>
-                <Link to="/products" className="inline-flex items-center gap-2 text-medical-purple font-bold text-sm hover:gap-3 transition-all">
-                  Learn More <ArrowRight className="w-4 h-4" />
-                </Link>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold mb-3 text-slate-900">{item.title}</h3>
+                  <p className="text-vitriva-text-secondary mb-6 font-medium leading-relaxed">{item.content}</p>
+                  <Link to="/products" className="inline-flex items-center gap-2 text-vitriva-primary font-bold text-sm hover:gap-3 transition-all">
+                    Explore <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* === QUALITY SECTION === */}
-      <section className="py-40 bg-white overflow-hidden relative">
-        <div className="container-wide relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
-              <h2 className="text-5xl font-serif font-bold mb-10 leading-tight">Product <br /><span className="text-medical-purple">Benefits</span></h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {[
-                  "Chelated Minerals",
-                  "Bioactive Forms",
-                  "Vegan Certified",
-                  "Purity Tested",
-                  "No Preservatives",
-                  "Zero Fillers"
-                ].map((adv, i) => (
-                  <div key={i} className="flex gap-4 items-center p-6 bg-medical-lavender/30 rounded-2xl border border-medical-lavender hover:bg-white hover:shadow-medical transition-all">
-                    <CheckCircle2 className="w-5 h-5 text-medical-purple shrink-0" />
-                    <span className="font-bold text-slate-700 text-sm tracking-tight">{adv}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+      {/* === WHY VITRIVA SECTION === */}
+      <section className="py-24 bg-vitriva-surface-2 border-y border-slate-100">
+        <div className="container-wide">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">Results-driven Wellness</h2>
+            <p className="text-xl text-vitriva-text-secondary max-w-2xl mx-auto font-medium">
+              Why thousands are completely switching their health routine to Vitriva.
+            </p>
+          </div>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={2}
-              className="bg-medical-purple rounded-[48px] p-16 text-white shadow-soft relative overflow-hidden"
-            >
-              <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-              <h3 className="text-3xl font-bold mb-10 italic">Our Promise</h3>
-              <p className="text-2xl text-white/80 mb-12 leading-relaxed font-light italic">
-                "Designed for optimal wellness. Ideal for those seeking premium nutritional support for body and mind."
-              </p>
-              
-              <div className="grid grid-cols-2 gap-10">
-                <div>
-                  <p className="text-white/40 font-bold uppercase text-[10px] tracking-widest mb-3">Serving</p>
-                  <p className="text-xl font-bold">400mg Elemental</p>
-                </div>
-                <div>
-                  <p className="text-white/40 font-bold uppercase text-[10px] tracking-widest mb-3">Purity</p>
-                  <p className="text-xl font-bold">100% Tested</p>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="rounded-3xl overflow-hidden shadow-sm">
+              <img src="/assets/Home4.jpeg" alt="Wellness feature 1" className="w-full h-64 object-cover" />
             </motion.div>
+            <motion.div variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }} className="rounded-3xl overflow-hidden shadow-sm">
+              <img src="/assets/Home5.jpeg" alt="Wellness feature 2" className="w-full h-64 object-cover" />
+            </motion.div>
+            <motion.div variants={fadeUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true }} className="rounded-3xl overflow-hidden shadow-sm">
+              <img src="/assets/Home6.jpeg" alt="Wellness feature 3" className="w-full h-64 object-cover" />
+            </motion.div>
+          </div>
+          
+          <div className="mt-16 text-center">
+            <Button size="lg" asChild className="btn-primary bg-slate-900 text-white hover:bg-slate-800 px-10 py-6 text-lg rounded-xl">
+              <Link to="/products">Join the Vitriva Journey</Link>
+            </Button>
           </div>
         </div>
       </section>
 
-
-      {/* === FINAL CALL === */}
-      <section className="py-40 bg-white">
-        <div className="container-wide text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="max-w-4xl mx-auto bg-slate-900 rounded-[64px] p-24 text-white relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-medical-purple/40 to-transparent opacity-50" />
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-6xl font-serif font-bold mb-10">Start Your <br /><span className="text-medical-purple">Wellness Journey</span></h2>
-              <Button size="xl" className="bg-white text-slate-900 hover:bg-medical-purple hover:text-white px-12 py-8 rounded-2xl text-xl font-bold transition-all shadow-xl">
-                Order Your Supply
-              </Button>
-              <p className="mt-10 text-white/40 text-sm italic">Tested. Proven. Essential.</p>
+      {/* === ANIMATED STATS === */}
+      <section className="py-20 bg-vitriva-primary text-white">
+        <div className="container-wide">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold font-serif mb-2">10k+</span>
+              <span className="text-vitriva-primary-xlight font-semibold uppercase tracking-wide text-sm">Customers</span>
             </div>
-          </motion.div>
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold font-serif mb-2">₹14.6</span>
+              <span className="text-vitriva-primary-xlight font-semibold uppercase tracking-wide text-sm">Per Capsule</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold font-serif mb-2">4.8★</span>
+              <span className="text-vitriva-primary-xlight font-semibold uppercase tracking-wide text-sm">Avg Rating</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold font-serif mb-2">48hr</span>
+              <span className="text-vitriva-primary-xlight font-semibold uppercase tracking-wide text-sm">Fast Delivery</span>
+            </div>
+          </div>
         </div>
       </section>
 

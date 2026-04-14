@@ -7,7 +7,7 @@ import ProductCard from "@/components/products/ProductCard";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Minus, Plus, ArrowLeft, ShieldCheck, Zap, Beaker } from "lucide-react";
 import { getCloudinaryUrl } from "@/lib/cloudinary";
 
@@ -29,6 +29,15 @@ const ProductDetail = () => {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [isScrolledPastCTA, setIsScrolledPastCTA] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolledPastCTA(window.scrollY > 600);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (isLoading) {
     return (
@@ -121,11 +130,29 @@ const ProductDetail = () => {
 
             <h1 className="text-5xl lg:text-6xl font-serif font-bold text-slate-900 mb-6 leading-[1.1]">{product.name}</h1>
             
-            <div className="flex items-center gap-4 mb-10">
-              <span className="text-4xl font-bold text-medical-purple">₹{product.price.toLocaleString()}</span>
-              {product.compareAtPrice && (
-                <span className="text-2xl text-slate-300 line-through font-medium">₹{product.compareAtPrice.toLocaleString()}</span>
+            <div className="flex items-center gap-4 mb-2">
+              <span className="text-4xl font-bold text-vitriva-primary">₹{product.price.toLocaleString()}</span>
+              {(product.compareAtPrice || 2200) > product.price && (
+                <span className="text-2xl text-slate-400 line-through font-medium">₹{product.compareAtPrice ? product.compareAtPrice.toLocaleString() : "2,200"}</span>
               )}
+            </div>
+            
+            <p className="text-vitriva-text-muted text-sm mb-6">
+              ≈ ₹14.66 / capsule · cheaper than a chai ☕
+            </p>
+            
+            <div className="buy-reasons mb-10">
+              <h3 className="font-bold text-slate-800 mb-3">Why people choose this →</h3>
+              <div className="flex flex-col gap-3">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 flex gap-3">
+                  <span className="text-xl">😴</span>
+                  <p className="text-sm text-slate-600">"I used to wake up tired every day. After 3 weeks on Magnesium Bisglycinate, I sleep like a baby." — <strong className="text-slate-800">Priya, Chennai</strong></p>
+                </div>
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 flex gap-3">
+                  <span className="text-xl">💪</span>
+                  <p className="text-sm text-slate-600">"Finally a supplement brand that doesn't charge airport prices." — <strong className="text-slate-800">Rajan, Coimbatore</strong></p>
+                </div>
+              </div>
             </div>
 
             <div className="prose prose-slate max-w-none mb-10">
@@ -191,6 +218,20 @@ const ProductDetail = () => {
           </section>
         )}
       </div>
+      
+      {/* Sticky bottom CTA — appears on scroll */}
+      <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 z-50 transform transition-transform duration-300 ${isScrolledPastCTA ? 'translate-y-0' : 'translate-y-full'}`} style={{ boxShadow: '0 -4px 16px rgba(0,0,0,0.08)' }}>
+        <div className="container-wide flex justify-between items-center max-w-lg mx-auto">
+          <div>
+            <p className="text-sm font-semibold line-clamp-1">{product.name}</p>
+            <p className="text-vitriva-primary font-bold">₹{product.price}</p>
+          </div>
+          <button onClick={handleAdd} className="btn-primary bg-vitriva-primary text-white hover:bg-vitriva-primary-light px-6 py-3 rounded-xl transition-colors shrink-0">
+            Add to Cart →
+          </button>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );

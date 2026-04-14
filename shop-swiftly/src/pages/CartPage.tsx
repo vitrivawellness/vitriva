@@ -93,26 +93,43 @@ const CartPage = () => {
               <h2 className="text-2xl font-serif font-bold text-slate-900 mb-8">Order Summary</h2>
               
               <div className="space-y-6 mb-10">
+                {subtotal < 499 && (
+                  <div className="shipping-nudge mb-4">
+                    <p className="text-sm text-vitriva-text-secondary mb-2">
+                      🚚 Add <strong className="text-vitriva-primary">₹{499 - subtotal}</strong> more for FREE delivery
+                    </p>
+                    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-vitriva-primary rounded-full" 
+                        style={{ width: `${(subtotal / 499) * 100}%` }} 
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="flex justify-between items-center text-sm font-medium">
                   <span className="text-slate-500">Subtotal</span>
                   <span className="text-slate-900 font-bold">₹{subtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm font-medium">
                   <span className="text-slate-500">Shipping</span>
-                  <span className={`${shipping === 0 ? "text-medical-teal" : "text-slate-900"} font-bold tracking-tight uppercase text-[10px]`}>
+                  <span className={`${shipping === 0 ? "text-vitriva-primary" : "text-slate-900"} font-bold tracking-tight uppercase text-[10px]`}>
                     {shipping === 0 ? "Complimentary" : `₹${shipping}`}
                   </span>
                 </div>
                 <div className="h-px bg-slate-200/50" />
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-serif font-bold text-slate-900">Total</span>
-                  <span className="text-3xl font-bold text-medical-purple">₹{total.toLocaleString()}</span>
+                  <span className="text-3xl font-bold text-vitriva-primary">₹{total.toLocaleString()}</span>
                 </div>
-                {shipping > 0 && (
-                  <p className="text-[10px] font-bold text-medical-purple/60 uppercase tracking-widest text-center mt-4">
-                    Add ₹{500 - subtotal} more for complimentary shipping
-                  </p>
-                )}
+              </div>
+
+              <div className="savings-summary bg-vitriva-primary-xlight border border-green-200 rounded-xl p-4 mt-4 mb-8">
+                <p className="text-vitriva-primary font-bold text-sm">
+                  🎉 You're getting the 40% offer rate.
+                </p>
+                <p className="text-xs text-vitriva-text-muted mt-1">
+                  At just ≈ ₹14.66/capsule — that's your health for less than a chai.
+                </p>
               </div>
 
               <Button className="w-full h-16 rounded-2xl shadow-medical text-lg font-bold group" size="xl" asChild>

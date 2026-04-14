@@ -86,7 +86,7 @@ const AdminProducts = () => {
       sku: formData.sku || generateSku(formData.name),
       price: parseFloat(formData.price),
       stock_quantity: parseInt(formData.stock_quantity, 10),
-      category_id: formData.category_id || undefined,
+      category_id: formData.category_id || null,
       images: formData.images,
       is_active: true
     });
@@ -139,7 +139,7 @@ const AdminProducts = () => {
         ...formData,
         price: parseFloat(formData.price),
         stock_quantity: parseInt(formData.stock_quantity, 10),
-        category_id: formData.category_id || undefined,
+        category_id: formData.category_id || null,
         images: formData.images,
       }
     });
@@ -190,11 +190,12 @@ const AdminProducts = () => {
               </div>
               <div>
                 <label className="text-sm font-medium">Category</label>
-                <Select value={formData.category_id} onValueChange={(val) => setFormData({ ...formData, category_id: val })}>
+                <Select value={formData.category_id || "none"} onValueChange={(val) => setFormData({ ...formData, category_id: val === "none" ? "" : val })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="none">None (Remove Category)</SelectItem>
                     {categories.map((cat: any) => (
                       <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
                     ))}
@@ -280,11 +281,12 @@ const AdminProducts = () => {
 
               <div className="space-y-1">
                 <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Category</label>
-                <Select value={formData.category_id} onValueChange={(val) => setFormData({ ...formData, category_id: val })}>
+                <Select value={formData.category_id || "none"} onValueChange={(val) => setFormData({ ...formData, category_id: val === "none" ? "" : val })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="none">None (Remove Category)</SelectItem>
                     {categories.map((cat: any) => (
                       <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
                     ))}

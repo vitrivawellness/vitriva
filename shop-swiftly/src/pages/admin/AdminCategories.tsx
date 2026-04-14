@@ -17,6 +17,11 @@ const AdminCategories = () => {
     queryFn: api.getCategories,
   });
 
+  const { data: products = [] } = useQuery({
+    queryKey: ["adminProducts"],
+    queryFn: api.getAdminProducts,
+  });
+
   const deleteMutation = useMutation({
     mutationFn: (id: string) => api.deleteCategory(id),
     onSuccess: () => {
@@ -98,7 +103,7 @@ const AdminCategories = () => {
               <tr key={cat.id} className="hover:bg-secondary/50 cursor-pointer">
                 <td className="px-4 py-3 font-medium">{cat.name}</td>
                 <td className="px-4 py-3 text-muted-foreground">{cat.slug}</td>
-                <td className="px-4 py-3">{cat.product_count || 0}</td>
+                <td className="px-4 py-3">{products.filter((p: any) => p.category_id === cat.id).length}</td>
                 <td className="px-4 py-3 text-muted-foreground">{cat.description}</td>
                 <td className="px-4 py-3 text-right">
                   <Button 

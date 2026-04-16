@@ -55,10 +55,10 @@ const Footer = () => (
         <div className="px-4 py-2 bg-white/5 rounded-full text-xs font-bold tracking-widest uppercase border border-white/10 text-white/80">🏥 Doctor Recommended</div>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="text-xs text-slate-500">© 2026 Vitriva Wellness. Science-Led Nutrition.</p>
-        <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-500">
-          <Link to="#" className="hover:text-white transition-colors">Privacy</Link>
-          <Link to="#" className="hover:text-white transition-colors">Terms</Link>
+        <p className="text-xs text-white/60">© 2026 Vitriva Wellness. Science-Led Nutrition.</p>
+        <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-white/80">
+          <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+          <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
         </div>
       </div>
     </div>

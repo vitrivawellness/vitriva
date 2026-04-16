@@ -60,7 +60,7 @@ const Navbar = () => {
 
           <div className="flex flex-col justify-center">
             <span className="font-serif text-2xl tracking-tight font-bold text-white leading-none">Vitriva Wellness</span>
-            <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-white/70 mt-1">Vitamin + Retrieval</span>
+            <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-white/70 mt-1">Vitamin + Revival</span>
           </div>
         </Link>
 

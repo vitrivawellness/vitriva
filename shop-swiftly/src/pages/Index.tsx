@@ -13,8 +13,36 @@ import {
   Activity, 
   Brain,
   ArrowRight,
-  Star
+  Star,
+  Home,
+  ChevronRight,
+  Battery,
+  Coffee,
+  CheckCircle,
+  HelpCircle,
+  Clock,
+  LayoutGrid
 } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { 
+  Tooltip, 
+  TooltipContent, 
+  TooltipProvider, 
+  TooltipTrigger 
+} from "@/components/ui/tooltip";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -29,6 +57,29 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       <Navbar />
+      
+      {/* SEO Breadcrumbs */}
+      <div className="bg-white border-b border-slate-100 py-3">
+        <div className="container-wide">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/" className="flex items-center gap-1">
+                  <Home className="w-3.5 h-3.5" /> Home
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/products">Wellness</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Energy Booster</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </div>
 
       {/* HERO SECTION — Psychological hook */}
       <section className="relative pt-24 pb-40 overflow-hidden bg-vitriva-primary-xlight">
@@ -48,8 +99,8 @@ const Index = () => {
               </div>
 
               <h1 className="text-4xl md:text-6xl font-serif font-extrabold leading-[1.1] mb-6 text-slate-900 tracking-tight">
-                Stop spending ₹500 on doctor visits.<br />
-                <span className="text-vitriva-primary">Start spending ₹15 on your health.</span>
+                Always feeling tired? <br />
+                <span className="text-vitriva-primary">Get the Vitriva boost for ₹15.</span>
               </h1>
 
               <p className="tagline text-xl mb-8 leading-relaxed max-w-lg">
@@ -97,8 +148,57 @@ const Index = () => {
         <div className="container-wide">
           <div className="text-center mb-16">
             <span className="text-vitriva-primary font-bold tracking-widest uppercase text-xs mb-4 block">Premium Wellness Essentials</span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">How It Works</h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">Always feeling tired? Get the Vitriva boost.</h2>
             <div className="w-20 h-1.5 bg-vitriva-primary rounded-full mx-auto" />
+          </div>
+
+          {/* Usage & Benefits Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-vitriva-primary-xlight p-10 rounded-[2.5rem] border border-vitriva-primary/10"
+            >
+              <div className="w-14 h-14 bg-vitriva-primary rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg">
+                <Zap className="w-7 h-7" />
+              </div>
+              <h3 className="text-3xl font-bold mb-4 text-vitriva-primary">Instant Energy (Day Use)</h3>
+              <p className="text-slate-700 text-lg mb-6 leading-relaxed">
+                Kickstart your morning without the caffeine crash. Our bioavailable formula provides sustained physiological energy.
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-slate-900 font-semibold italic">
+                  <CheckCircle className="w-5 h-5 text-vitriva-primary" /> Fix office afternoon sleepiness.
+                </li>
+                <li className="flex items-center gap-3 text-slate-900 font-semibold italic">
+                  <CheckCircle className="w-5 h-5 text-vitriva-primary" /> Clear brain fog instantly.
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-200"
+            >
+              <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center mb-6 text-white shadow-lg">
+                <Moon className="w-7 h-7" />
+              </div>
+              <h3 className="text-3xl font-bold mb-4 text-slate-900">Deep Sleep Help (Night Use)</h3>
+              <p className="text-slate-700 text-lg mb-6 leading-relaxed">
+                Calm your nervous system and prepare your body for deep, restorative sleep.
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-slate-900 font-semibold italic">
+                  <CheckCircle className="w-5 h-5 text-slate-700" /> Stop leg cramps at night.
+                </li>
+                <li className="flex items-center gap-3 text-slate-900 font-semibold italic">
+                  <CheckCircle className="w-5 h-5 text-slate-700" /> Wake up truly refreshed.
+                </li>
+              </ul>
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -170,6 +270,97 @@ const Index = () => {
             <Button size="lg" asChild className="btn-primary bg-slate-900 text-white hover:bg-slate-800 px-10 py-6 text-lg rounded-xl">
               <Link to="/products">Join the Vitriva Journey</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Problem-Solution FAQ */}
+      <section className="py-24 bg-white">
+        <div className="container-wide max-w-4xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-serif font-bold mb-4">Your Wellness Questions, Answered</h2>
+            <p className="text-slate-500 text-lg">Science-backed solutions for your daily struggles.</p>
+          </div>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            <AccordionItem value="item-1" className="border border-slate-200 rounded-2xl px-6 bg-slate-50 shadow-sm overflow-hidden">
+              <AccordionTrigger className="text-xl font-bold py-6 hover:no-underline">
+                <span className="flex items-center gap-3"><Battery className="w-6 h-6 text-vitriva-primary" /> Always feeling tired?</span>
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 text-lg pb-6 leading-relaxed">
+                That persistent drain is often a sign of nutrient depletion. Vitriva's magnesium-based formula helps optimize your body's Energy production at a cellular level, giving you a natural bounce back for just ₹15.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2" className="border border-slate-200 rounded-2xl px-6 bg-slate-50 shadow-sm overflow-hidden">
+              <AccordionTrigger className="text-xl font-bold py-6 hover:no-underline">
+                <span className="flex items-center gap-3"><Clock className="w-6 h-6 text-vitriva-primary" /> Leg cramps at night?</span>
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 text-lg pb-6 leading-relaxed">
+                Muscle spasms at 3 AM are the body's way of asking for help. Our chelated magnesium reaches your muscles faster, relaxing them so you can sleep through the night without interruption.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3" className="border border-slate-200 rounded-2xl px-6 bg-slate-50 shadow-sm overflow-hidden">
+              <AccordionTrigger className="text-xl font-bold py-6 hover:no-underline">
+                <span className="flex items-center gap-3"><Brain className="w-6 h-6 text-vitriva-primary" /> Brain fog fix?</span>
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 text-lg pb-6 leading-relaxed">
+                Mental clarity starts with a calm nervous system. By supporting neurotransmitter function, Vitriva helps clear the "mental haze" so you can focus on what matters.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-4" className="border border-slate-200 rounded-2xl px-6 bg-slate-50 shadow-sm overflow-hidden">
+              <AccordionTrigger className="text-xl font-bold py-6 hover:no-underline">
+                <span className="flex items-center gap-3"><Coffee className="w-6 h-6 text-vitriva-primary" /> Office afternoon sleepiness?</span>
+              </AccordionTrigger>
+              <AccordionContent className="text-slate-600 text-lg pb-6 leading-relaxed">
+                The 3 PM slump is real. Instead of another coffee, try Vitriva. It stabilizes your energy levels without the jitters or the subsequent crash.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Marketplace Trust Bar */}
+      <section className="py-16 border-t border-slate-100 bg-slate-50/50">
+        <div className="container-wide">
+          <p className="text-center text-slate-400 font-bold uppercase tracking-widest text-xs mb-10">Available Soon On</p>
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-7" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Coming Soon to Amazon</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Flipkart_logo_%282026%29.svg" alt="Flipkart" className="h-7" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Coming Soon to Flipkart</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
+                    <img src="https://companieslogo.com/img/orig/INDIAMART.NS_BIG-467a563d.png?t=1720244492" alt="IndiaMart" className="h-7" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Coming Soon to IndiaMart</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </section>

@@ -63,6 +63,26 @@ export const api = {
         return data;
     },
 
+    createCategory: async (categoryData: any) => {
+        const { data, error } = await supabase
+            .from('categories')
+            .insert(categoryData)
+            .select()
+            .single();
+
+        if (error) throw error;
+        return data;
+    },
+
+    deleteCategory: async (id: string) => {
+        const { error } = await supabase
+            .from('categories')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+    },
+
     // Auth (Using Supabase Auth)
     login: async (credentials: any) => {
         const { data, error } = await supabase.auth.signInWithPassword({

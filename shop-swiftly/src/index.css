@@ -4,14 +4,14 @@
 
 @layer base {
 :root {
-    --vitriva-primary:        #1B5E20;   /* CTAs, active states */
-    --vitriva-primary-light:  #2E7D32;   /* Hover states */
-    --vitriva-primary-xlight: #E8F5E9;   /* Tinted backgrounds */
+    --vitriva-primary:        #0A61A6;   /* Deep Blue - CTAs, active states */
+    --vitriva-primary-light:  #0D74C7;   /* Hover states */
+    --vitriva-primary-xlight: #F0F7FF;   /* Tinted backgrounds */
 
-    /* ACCENT — Warm Saffron (energy, India, urgency) */
-    --vitriva-accent:         #E65100;   /* Sale badges, limited tags */
-    --vitriva-accent-light:   #FF6D00;   /* Hover on accent elements */
-    --vitriva-accent-xlight:  #FFF3E0;   /* Warm tinted sections */
+    /* ACCENT — Red/Orange for importance (specifically the '₹15' claim) */
+    --vitriva-accent:         #E63946;   /* Urgent accent */
+    --vitriva-accent-light:   #F1FAEE;   /* Hover on accent elements */
+    --vitriva-accent-xlight:  #FFF1F2;   /* Warm tinted sections */
 
     /* SECONDARY — Golden Turmeric (warmth, wellness) */
     --vitriva-gold:           #F9A825;   /* Stars, highlights, icons */
